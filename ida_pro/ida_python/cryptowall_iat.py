@@ -78,14 +78,13 @@ def enum_for_xrefs(f_addr):
 			curr_addr2 = NextHead(curr_addr2)
 			if GetMnem(curr_addr2) == "mov":
 				possible_iat = GetOperandValue(curr_addr2, 1)
-				if IAT == possible_iat:
-					curr_addr2 = NextHead(curr_addr2)
-					if GetMnem(curr_addr2) == "mov" and GetOpnd(curr_addr2, 1) == "eax":
-						offset = GetOperandValue(curr_addr2, 0)
-						if offset == 1 and current_constant != None:
-							iat_structure[0] = current_constant
-						elif current_constant != None:
-							iat_structure[offset] = current_constant
+				curr_addr2 = NextHead(curr_addr2)
+				if GetMnem(curr_addr2) == "mov" and GetOpnd(curr_addr2, 1) == "eax":
+					offset = GetOperandValue(curr_addr2, 0)
+					if offset == 1 and current_constant != None:
+						iat_structure[0] = current_constant
+					elif current_constant != None:
+						iat_structure[offset] = current_constant
 	return iat_structure
 
 
