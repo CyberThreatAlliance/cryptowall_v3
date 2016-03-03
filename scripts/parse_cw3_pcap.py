@@ -126,6 +126,7 @@ def parse_pcap_file(filename):
         try:
             stream = conn[ip_tupl]
             if stream[:4] == 'HTTP':
+                http = dpkt.http.Response(stream)
                 parse_response(http, stream)
             else:
                 http = dpkt.http.Request(stream)
